@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
+	site: 'https://mirror.winx.run',
 	integrations: [
 		starlight({
 			title: 'WinX-M',
@@ -17,6 +18,16 @@ export default defineConfig({
 					lang: 'zh-CN',
 				},
 			},
+			head: [
+				// 示例：添加 Fathom 分析脚本标签。
+				{
+					tag: 'link',
+					attrs: {
+						rel: "sitemap",
+						href: '/sitemap-index.xml',
+					},
+				},
+			],
 			sidebar: [
 				{
 					label: '首页',
