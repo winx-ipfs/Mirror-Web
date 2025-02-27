@@ -5,16 +5,12 @@
   "descriptio": "一个由IPFS支持的镜像站",
   "git repository": "https://github.com/winx-ipfs/Mirror-Web",
   "license": "MIT",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+  "devDependencies": {
+    "vitepress": "^1.6.3"
   },
-  "dependencies": {
-    "@astrojs/starlight": "^0.32.1",
-    "astro": "^5.1.5",
-    "sharp": "^0.32.5"
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   }
 }
