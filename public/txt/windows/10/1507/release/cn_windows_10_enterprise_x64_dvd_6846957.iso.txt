@@ -1,5 +1,7 @@
+CID: bafybeidgdgzcht4uckpwyd6bavewlbguuxteounylpuuadydz6ltokok5m
 名称: cn_windows_10_enterprise_x64_dvd_6846957.iso
-大小: 4162242560 字节 : 3969 MiB
+大小: 4162242560
+字节 : 3969 MiB
 CRC32: 541B5BB5
 CRC64: 73255B0A42915CFB
 SHA256: 02aef95802ca66f5b03fa0122ae4aa9ccc584c985e6eaa5f05dc3953f8031db3
