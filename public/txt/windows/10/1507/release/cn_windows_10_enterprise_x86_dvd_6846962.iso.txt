@@ -1,5 +1,7 @@
+CID: bafybeif6ij6jckgrx7xksojvmxti7zpsykk2rhjeddsaxzspmkizwqunty
 名称: cn_windows_10_enterprise_x86_dvd_6846962.iso
-大小: 3100794880 字节 : 2957 MiB
+大小: 3100794880
+字节 : 2957 MiB
 CRC32: F21FE682
 CRC64: D4558E63BA101FD4
 SHA256: 252a09d805d1e56877b8cc3cb985a4248a16879dc9b1bf7a82665e5e217a5d4f

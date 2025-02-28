@@ -1,5 +1,7 @@
+CID: bafybeibagprfyh5a35zpjfb5wv3lljpqnaef6oxwugcjqs2wztcbgif7wi
 名称: cn_windows_10_education_x86_dvd_6847858.iso
-大小: 3097344000 字节 : 2953 MiB
+大小: 3097344000
+字节 : 2953 MiB
 CRC32: 309D58EA
 CRC64: 7EBF358A8190BDA7
 SHA256: a66a74886fcda27e31b8beb59b16df581fef61eae0c3f2e6a576e8b10b608e6b
