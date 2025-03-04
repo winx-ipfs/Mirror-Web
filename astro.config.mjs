@@ -45,6 +45,12 @@ export default defineConfig({
 						href: '/sitemap-index.xml',
 					},
 				},
+				{
+					tag: 'script',
+					attrs: {
+						src: '/js/clarity.js',
+					},
+				},
 			],
 			lastUpdated: false, // 控制页脚是否显示页面上次更新的时间
 			pagination: false, // 定义页脚是否应包含上一页和下一页的链接
