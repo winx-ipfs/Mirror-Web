@@ -1,6 +1,7 @@
 CID：bafybeid5ro5fttcqkiwsyhe5m26pi63tnqd56jp7alhmtvf6ulontywsqy
 名称: sc_winxp_sp1.iso
-大小: 312993792 字节 : 298 MiB
+大小: 312993792
+字节 : 298 MiB
 CRC32: FFFFFFFF
 CRC64: B19DBFE7D37691E0
 SHA256: 9bb0739060a6cac9408cd6817af63baff4e1c6c538dc08a01a5d18746c736ff0

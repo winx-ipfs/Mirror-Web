@@ -1,6 +1,7 @@
 CID：bafybeie2grfrdtditoy3hv66nc6xikuz6ftob7ml3au7tanwlyfnoismee
 名称: sc_winxp_tablet_2005_CD1.iso
-大小: 629227520 字节 : 600 MiB
+大小: 629227520
+字节 : 600 MiB
 CRC32: FFFFFFFF
 CRC64: 9BCC2DCB549510E2
 SHA256: 13a11157d932c9e7a3a52edc6dadd55822b0adeb8dc74708af8d247a3655444e
