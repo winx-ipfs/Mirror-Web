@@ -1,3 +1,4 @@
+CID：bafybeihcl6mzd3wp7o2sibaqwjfcbnpc345k5pvkk35mjmllmyn4egwc5i
 名称: CN_WINXP_HOME_ISO.img
 大小: 513515520 字节 : 489 MiB
 CRC32: FFFFFFFF
