@@ -1,6 +1,7 @@
 CID：bafybeiczq5qqm6o73n5rhghhepfppu2hvqeqgrx2ydjyr7h7gck7523gsi
 名称: zh-hans_windows_xp_professional_with_service_pack_3_x86_cd_x14-80404.iso
-大小: 630239232 字节 : 601 MiB
+大小: 630239232
+字节 : 601 MiB
 CRC32: FFFFFFFF
 CRC64: FC5A5181AB994CF8
 SHA256: c54d6c504a0267617a567c994cecc91c80496c5241503efd67a11909b6e0a98b

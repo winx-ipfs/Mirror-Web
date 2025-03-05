@@ -1,6 +1,7 @@
 CID：bafybeidu2c6n7knt3j7tjczzugjhbeh7st2cjfms4mx3an46qadhtvikfm
 名称: zh-hans_windows_xp_service_pack_3_x86_cd_x14-60563.iso
-大小: 417675264 字节 : 398 MiB
+大小: 417675264
+字节 : 398 MiB
 CRC32: FFFFFFFF
 CRC64: FD46FB800166213D
 SHA256: 900a6c264088ff4851b6643468e8a68b854712117be7ee25475f2011bd87a2b1

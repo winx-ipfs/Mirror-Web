@@ -1,6 +1,7 @@
 CID：bafybeiev6m6eif3jyh5ad3377qd7kx2f7nffwbajj5de27yoechklxm5om
 名称: sc_winxp_home_with_sp2.iso
-大小: 611358720 字节 : 583 MiB
+大小: 611358720
+字节 : 583 MiB
 CRC32: FFFFFFFF
 CRC64: 31C1CFA50EEEDF08
 SHA256: db4375feae942590bb0104e8bbfea1a6ffeab6e2edb93298567521824d148bf3
