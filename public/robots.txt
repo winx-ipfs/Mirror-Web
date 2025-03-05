@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://mirror.winx.run/sitemap-index.xml
-Sitemap: https://mirror.winx.run/sitemap-0.xml
