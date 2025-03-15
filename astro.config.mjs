@@ -8,8 +8,8 @@ export default defineConfig({
 			title: 'WinX-M', // 设置网站标题
 			description: '一个基于 IPFS 的镜像站', // 设置网站描述
 			logo: { // 在导航栏中设置一个 logo 图片
-				light: './src/assets/winx-light.webp', // 导航栏中浅色模式 logo 图片
-				dark: './src/assets/winx-dark.webp',}, // 导航栏中深色模式 logo 图片
+				light: './src/assets/winx-light.svg', // 导航栏中浅色模式 logo 图片
+				dark: './src/assets/winx-dark.svg',}, // 导航栏中深色模式 logo 图片
 			tableOfContents: { // 配置每个页面右侧显示的目录
 				minHeadingLevel: 2, // 从 <h2> 开始
 				maxHeadingLevel: 4, }, // 到 <h4> 结束
@@ -54,7 +54,7 @@ export default defineConfig({
 			],
 			lastUpdated: false, // 控制页脚是否显示页面上次更新的时间
 			pagination: false, // 定义页脚是否应包含上一页和下一页的链接
-			favicon: '/favicon.ico', // 设置网站的默认 favicon 的路径
+			favicon: '/favicon.svg', // 设置网站的默认 favicon 的路径
 			titleDelimiter: '|', // 设置在页面的 <title> 标签里页面标题和网站标题之间的分隔符
 			disable404Route: false, // 自定义 404 页面
 			components: { // 提供组件的路径来覆盖 Starlight 的默认实现
