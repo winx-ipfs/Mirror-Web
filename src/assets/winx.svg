@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_自定义" data-name="自定义" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #20ffa9;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
+      }
+
+      .cls-2 {
+        fill: #20ffa9;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-1" points="12.49 28.64 50 6.59 87.5 28.36 87.51 71.72 50.02 93.41 12.5 71.56 12.49 28.64"/>
+  <polygon class="cls-1" points="49.94 16.42 29.19 28.67 49.94 41.11 62.26 34.1 69.96 38.36 69.96 48.91 78.9 43.89 78.83 32.66 49.94 16.42"/>
+  <polyline class="cls-1" points="19.52 32.7 49.51 50.74 49.51 86.03"/>
+  <line class="cls-1" x1="63.01" y1="42.98" x2="49.02" y2="50.74"/>
+  <polygon class="cls-1" points="20.46 43.64 41.86 55.87 41.86 79.83 20.46 67.04 20.46 43.64"/>
+  <line class="cls-1" x1="12.5" y1="62.54" x2="20.76" y2="56.71"/>
+  <circle class="cls-2" cx="19.52" cy="32.7" r="1.49"/>
+  <line class="cls-1" x1="57.58" y1="65.17" x2="57.58" y2="45.99"/>
+  <polyline class="cls-1" points="57.58 79.83 78.89 67.35 78.9 43.89"/>
+  <line class="cls-1" x1="87.5" y1="50.74" x2="78.9" y2="55.83"/>
+  <line class="cls-1" x1="57.58" y1="70.21" x2="57.63" y2="89.01"/>
+  <circle class="cls-2" cx="62.93" cy="43.02" r="1.53"/>
+  <circle class="cls-2" cx="49.51" cy="86.03" r="1.49"/>
+  <circle class="cls-2" cx="57.58" cy="65.17" r="1.49"/>
+  <circle class="cls-2" cx="57.58" cy="70.21" r="1.49"/>
+</svg>
