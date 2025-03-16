@@ -14,7 +14,7 @@ export default defineConfig({
 				minHeadingLevel: 2, // 从 <h2> 开始
 				maxHeadingLevel: 4, }, // 到 <h4> 结束
 			editLink: { // 启用 “编辑此页” 链接
-				baseUrl: 'https://github.com/winx-ipfs/Mirror-Web/edit/main/', // 设置 “编辑此页” 链接
+				baseUrl: 'https://github.com/winx-ipfs/Mirror-Web/edit/develop/', // 设置 “编辑此页” 链接
 			},
 			locales: { // 设置多语言
 				root: { // 不用设置语言目录
