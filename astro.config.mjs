@@ -161,10 +161,69 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Linux 系统',
+					label: "Linux系统",
 					collapsed: true,
-					autogenerate: { directory: 'linux' },
-				},
+					items: [
+					  {
+						label: "Ubuntu",
+						collapsed: true,
+						items: [
+						  { label: "24.04 LTS", link: "/linux/ubuntu/24-04" },
+						  { label: "22.04 LTS", link: "/linux/ubuntu/22-04" },
+						  { label: "20.04 LTS", link: "/linux/ubuntu/20-04" },
+						  { label: "18.04 LTS", link: "/linux/ubuntu/18-04" },
+						  { label: "非 LTS 版本", link: "/linux/ubuntu/non-lts" }
+						]
+					  },
+					  {
+						label: "Debian",
+						collapsed: true,
+						items: [
+						  { label: "Bookworm (12)", link: "/linux/debian/12" },
+						  { label: "Bullseye (11)", link: "/linux/debian/11" },
+						  { label: "Buster (10)", link: "/linux/debian/10" },
+						  { label: "Testing", link: "/linux/debian/testing" },
+						  { label: "Unstable (Sid)", link: "/linux/debian/unstable" }
+						]
+					  },
+					  {
+						label: "Arch Linux",
+						collapsed: true,
+						items: [
+						  { label: "最新稳定版", link: "/linux/arch/stable" },
+						  { label: "滚动更新", link: "/linux/arch/rolling" }
+						]
+					  },
+					  {
+						label: "Fedora",
+						collapsed: true,
+						items: [
+						  { label: "40", link: "/linux/fedora/40" },
+						  { label: "39", link: "/linux/fedora/39" },
+						  { label: "38", link: "/linux/fedora/38" },
+						  { label: "Rawhide", link: "/linux/fedora/rawhide" }
+						]
+					  },
+					  {
+						label: "openSUSE",
+						collapsed: true,
+						items: [
+						  { label: "Leap 15.6", link: "/linux/opensuse/leap-15-6" },
+						  { label: "Leap 15.5", link: "/linux/opensuse/leap-15-5" },
+						  { label: "Tumbleweed", link: "/linux/opensuse/tumbleweed" }
+						]
+					  },
+					  {
+						label: "Alpine Linux",
+						collapsed: true,
+						items: [
+						  { label: "3.19", link: "/linux/alpine/3-19" },
+						  { label: "3.18", link: "/linux/alpine/3-18" },
+						  { label: "Edge", link: "/linux/alpine/edge" }
+						]
+					  }
+					]
+				  },				  
 				{
 					label: '国产系统',
 					collapsed: true,
@@ -174,3 +233,5 @@ export default defineConfig({
 		}),
 	],
 });
+
+  
