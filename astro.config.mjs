@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightDocSearch from '@astrojs/starlight-docsearch';
 
 export default defineConfig({
 	site: 'https://mirror.winx.run',
@@ -61,7 +62,11 @@ export default defineConfig({
 				// SocialLinks: './src/components/MySocialLinks.astro',
 			},
 			plugins: [ // 使用自定义插件扩展 Starlight
-				// starlightPlugin()
+				starlightDocSearch({
+					appId: 'R12YJAPH2R',
+					apiKey: '0bce914754e280c1c721f4c862c4992d',
+					indexName: 'mirror-winx',
+				}),
 			],
 			credits: true, // 启用网站页脚显示 “基于 Starlight 构建” 的链接。
 			sidebar: [ // 配置网站的侧边栏导航项目
