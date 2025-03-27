@@ -1,7 +1,7 @@
-CID：bafybeibgjohxhwbshcjja4vmbmt5weuu4fbje3xbqez7bkzknumwqkwxjq
+CID: bafybeidmihozsjba3zcxqgkfpyl4y2oux4wijog5jpiyojecxvft2nhqty
 名称: zh-hans_windows_xp_home_with_service_pack_3_x86_cd_x14-92408.iso
 大小: 611794944
-字节 : 583 MiB
+字节: 583 MiB
 CRC32: FFFFFFFF
 CRC64: 633602AAEB82D216
 SHA256: e2715852b0968a2ba285bcc4dba4b14dd638876cb992a6c6444c046fe2a8b5c9

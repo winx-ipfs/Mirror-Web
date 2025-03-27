@@ -1,7 +1,7 @@
-CID：bafybeiah7hl6ohvapzxjvb5rhsgx2arnuimfdaxytewf3wfqptssci6w5u
+CID: bafybeiaeqh4wnra4vqp3ekte43usiv4z5emfcox6zpscqjxyc7xnvevboi
 名称: CN_WINXP_PRO_ISO.img
 大小: 530186240
-字节 : 505 MiB
+字节: 505 MiB
 CRC32: FFFFFFFF
 CRC64: ABD2F843C1CF9724
 SHA256: 00a2a75bef7857aa8bf45a7b24a681c0754c143018c1987fbf2ce08431451833

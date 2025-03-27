@@ -1,4 +1,4 @@
-CID：bafybeieidpwc4papgj3khgk4xar47ul32nqnlrz2aeu6qi42f5jrd5lf6u
+CID: bafybeigbmxzpv742ufql3hwnpplb4zl6c2qq5p4dwwacgnqmfum4w36d2m
 名称: sc_win_xp_pro_with_sp2_vl.iso
 大小: 621346816
 字节: 592 MiB
