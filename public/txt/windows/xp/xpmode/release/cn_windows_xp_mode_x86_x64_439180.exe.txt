@@ -1,7 +1,7 @@
-CID：bafybeiasogzerzywusyc7ym5b3zlfoncyusvsokby7f5zhz5didiwi7aaq
+CID: bafybeicrvquxnucyr23rcwdg7xovlb7l5wacgxebltxbfbfzqbimrsjrbi
 名称: cn_windows_xp_mode_x86_x64_439180.exe
 大小: 587586848
-字节 : 560 MiB
+字节: 560 MiB
 CRC32: 50C41C0F
 CRC64: 36AE13F81A27E43E
 SHA256: e72b5be23989a9ecb92ec18055298ac252e6d6b3190ebc4027e1c001494aba09
