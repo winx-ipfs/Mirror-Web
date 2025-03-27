@@ -1,7 +1,7 @@
-CID：bafybeieirvw5rcztodjle5eomt6f6z2zhr5kva4p4ivkp5q5u6r5gnl72q
+CID: bafybeidt7stjppl6jt2wtglcrqp35rg5djvjsyttb3aoqmudp7jzhg24l4
 名称: sc_winxp_mce_2005_update2.iso
 大小: 30445568
-字节 : 29 MiB
+字节: 29 MiB
 CRC32: FFFFFFFF
 CRC64: 7C49D3BF0171C50D
 SHA256: a14ce4cfedefdb8ff39f37395bc996f9ace4f0fee2665dca15d13011787abcc8

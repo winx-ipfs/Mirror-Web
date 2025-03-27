@@ -1,7 +1,7 @@
-CID：bafybeidabyelittmm5wrlr7tuirl34omwlistqojnvqeu3veo5jxdr3wy4
+CID: bafybeiaunck5uitr4jk4qhku55eh5fz6xvomxnzjsqbtjq7z6x467krd6i
 名称: sc_winxp_mce_2005_cd1.iso
 大小: 630503424
-字节 : 601 MiB
+字节: 601 MiB
 CRC32: FFFFFFFF
 CRC64: 750484F59DD76B8D
 SHA256: 487d2a4596302c142bd5b42091847df4c493874874e6aa8359797695307c7f83
