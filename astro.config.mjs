@@ -121,8 +121,8 @@ export default defineConfig({
 							label: "Windows 8.1",
 							collapsed: true,
 							items: [
-								{label: 'Update',link: '/windows/8.1/update',},
-								{label: 'RTM',link: '/windows/8.1/rtm',},
+								{label: 'Update',link: '/windows/8_1/update',},
+								{label: 'RTM',link: '/windows/8_1/rtm',},
 							],
 						},
 						{
