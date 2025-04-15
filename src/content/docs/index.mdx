@@ -49,4 +49,37 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 		即使某些节点离线，仍可以从其他节点检索文件。
 	</Card>
 </CardGrid>
-<img style="vertical-align:middle" src=""><a href="https://beian.miit.gov.cn/">黑ICP备2025037666号</a></img>
+export const FilingNotice = () => (
+  <div className="filing-container">
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" className="filing-link">
+        <span className="filing-text">备案号：黑ICP备2025037666-1</span>
+    </a>
+</div>
+);
+
+<style>
+    {`
+  .filing-container {
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    font-size: 12px;
+  }
+
+      .filing-link {
+        color: #666;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .filing-link:hover {
+        color: #333;
+      }
+
+      .filing-text {
+        display: inline-block;
+      }
+`}
+</style>
+
+<FilingNotice />
