@@ -163,6 +163,20 @@ export default defineConfig({
 								{label: 'RTM',link: '/windows/xp/rtm',},
 							],
 						},
+						{
+							label: "Windows PE",
+							collapsed: true,
+							items: [
+								{label: '微PE',link: '/windows/pe/tinype',},
+								{label: 'FirPE',link: '/windows/pe/firpe',},
+								{label: 'HotPE',link: '/windows/pe/hotpe',},
+								{label: '优启通',link: '/windows/pe/easyu',},
+								{label: '雷电PE',link: '/windows/pe/lightningpe',},
+								{label: 'USBOS',link: '/windows/pe/usbos',},
+								{label: 'H3PE',link: '/windows/pe/h3pe',},
+								{label: 'Ventoy',link: '/windows/pe/ventoy',},
+							],
+						},
 					],
 				},
 				{
