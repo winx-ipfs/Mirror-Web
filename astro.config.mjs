@@ -25,9 +25,9 @@ export default defineConfig({
 				},
 			},
 			defaultLocale: 'zh-CN', // 为网站设置简体中文作为默认语言
-			social: { // 社交媒体账户详情
-				github: 'https://github.com/winx-ipfs/Mirror-Web', // 添加 GitHub 社交媒体账户详情
-			},
+			social: [ // 社交媒体账户详情
+				{ icon: 'github', label: 'GitHub', href: 'https://github.com/winx-ipfs/Mirror-Web' }, // 添加 GitHub 社交媒体账户详情
+			],
 			// customCss: [ // 使用 CSS 文件来自定义 Starlight 网站的外观和风格
 			// 		'./src/custom-styles.css', // 使用本地css
 			// 		'@fontsource/roboto' // 使用模块css
