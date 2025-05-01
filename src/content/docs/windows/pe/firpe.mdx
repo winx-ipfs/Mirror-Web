@@ -1,3 +1,54 @@
 ---
-title: Firpe
+title: FirPE
 ---
+import { Badge, Card, LinkCard, CardGrid, Code } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+[//]: # (最新)
+
+import firpe203 from '/txt/windows/pe/firpe/firpe203.txt?raw';
+
+[//]: # (老版本)
+
+import firpe201 from '/txt/windows/pe/firpe/firpe201.txt?raw';
+import firpe192 from '/txt/windows/pe/firpe/firpe192.txt?raw';
+
+<Aside>请预先准备好U盘，推荐16G或以上！</Aside>
+
+#### FirPE v2.0.3
+<Badge text="IPFS" variant="note" /> <Badge text="64/32位" variant="success" /> <Badge text="PE系统" variant="tip" /> <Badge text="中文" variant="caution" /> <Badge text="2025-04-06" variant="danger" />
+<Card title="IPFS 下载与详情">
+    <CardGrid>
+        <LinkCard title="快速下载" href="https://ipfs.winx.run/bafybeiaypvvhhzmn4fn3oa7j4565dtkz7t24kdown3tbbo4clvkvcz4h2y?filename=FirPE-V2.0.3.exe#quick" />
+        <LinkCard title="高级下载" href="https://ipfs.winx.run/bafybeiaypvvhhzmn4fn3oa7j4565dtkz7t24kdown3tbbo4clvkvcz4h2y?filename=FirPE-V2.0.3.exe" variant="secondary" />
+    </CardGrid>
+    <Code code={firpe203} title="校验信息" wrap={true} />
+</Card>
+
+
+#### FirPE v2.0.1
+<Badge text="IPFS" variant="note" /> <Badge text="64/32位" variant="success" /> <Badge text="PE系统" variant="tip" /> <Badge text="中文" variant="caution" /> <Badge text="2025-01-05" variant="danger" />
+<Card title="IPFS 下载与详情">
+    <CardGrid>
+        <LinkCard title="快速下载" href="https://ipfs.winx.run/bafybeietthcdchiy7bjhpuwvzel2tiqxvuo75cz4yt2bbdaanxjqkdazy4?filename=FirPE-V2.0.1.exe#quick" />
+        <LinkCard title="高级下载" href="https://ipfs.winx.run/bafybeietthcdchiy7bjhpuwvzel2tiqxvuo75cz4yt2bbdaanxjqkdazy4?filename=FirPE-V2.0.1.exe" variant="secondary" />
+    </CardGrid>
+    <Code code={firpe201} title="校验信息" wrap={true} />
+</Card>
+
+
+#### FirPE v1.9.2
+<Badge text="IPFS" variant="note" /> <Badge text="64/32位" variant="success" /> <Badge text="PE系统" variant="tip" /> <Badge text="中文" variant="caution" /> <Badge text="2025-03-07" variant="danger" />
+<Card title="IPFS 下载与详情">
+    <CardGrid>
+        <LinkCard title="快速下载" href="https://ipfs.winx.run/bafybeihkoh5pbt5zanvbq5rump36yy2hdhhl2xifbpk6eylfpyl7re5nhq?filename=FirPE-V1.9.2.exe#quick" />
+        <LinkCard title="高级下载" href="https://ipfs.winx.run/bafybeihkoh5pbt5zanvbq5rump36yy2hdhhl2xifbpk6eylfpyl7re5nhq?filename=FirPE-V1.9.2.exe" variant="secondary" />
+    </CardGrid>
+    <Code code={firpe192} title="校验信息" wrap={true} />
+</Card>
+
+<LinkCard
+    title="FirPE"
+    href="https://firpe.cn/"
+    description="也许是最适合年轻人使用的第三方WinPE~"
+/>
