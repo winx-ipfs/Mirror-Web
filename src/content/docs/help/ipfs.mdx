@@ -42,11 +42,7 @@ IPFS 的魔力在于几个关键技术：
 IPFS 网络中的节点使用 DHT 来互相发现和宣告它们拥有的内容。当您请求一个 CID 时，您的 IPFS 节点会向 DHT 查询“谁拥有这个 CID 对应的数据块？”。网络中的其他节点会响应，告诉您的节点可以从哪里下载这些数据块。
 
 4.  **Bitswap:**
-这是一种数据交换协议，IPFS 节点之间通过它来请求和发送数据块。
-
-它类似于 BitTorrent 的数据交换机制，允许节点从多个对等方同时下载数据。
-
-同时它自带反吸血机制。
+这是一种数据交换协议，IPFS 节点之间通过它来请求和发送数据块，它类似于 BitTorrent 的数据交换机制，允许节点从多个对等方同时下载数据，同时它自带反吸血机制。
 
 ## 更深入了解：IPFS 网关 (Gateway)
 
@@ -67,20 +63,23 @@ IPFS 网关是一个运行 IPFS 节点的服务器，它同时提供一个 HTTP/
 3.  **获取内容：** 一旦找到，网关会从其他 IPFS 节点下载这些数据块。
 4.  **通过 HTTP 响应返回内容：** 网关将获取到的内容通过 HTTP 协议发送回您的浏览器。
 
-例如，要通过 `ipfs.io` 网关访问 CID `bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy`，您可以使用 URL： `https://ipfs.io/ipfs/bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy` 。
+例如，要通过 `ipfs.io` 网关访问 CID `bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy`
+
+您可以使用 URL： `https://ipfs.io/ipfs/bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy`
 
 ### 网关的类型
 
-1.  **子域名网关 (Subdomain Gateway):**
-
-    子域名网关可以安全的在浏览器上区分不同域下的个人数据，实现内容隔离。
-    子域名网关并不能直接使用CIDv0，因为CIDv0包含大写字母，建议添加IPFS资源时使用CIDv1。
-<Code lang="text" code="https://<CID>.ipfs.<网关域名>" title="子域名网关"/>
-
-2.  **路径网关 (Path Gateway):**
+1.  **路径网关 (Path Gateway):**
 
 <Code lang="text" code="https://<网关域名>/ipfs/<CID>" title="路径网关"/>
 
+2.  **子域名网关 (Subdomain Gateway):**
+
+<Code lang="text" code="https://<CID>.ipfs.<网关域名>" title="子域名网关"/>
+
+子域名网关可以安全的在浏览器上区分不同域下的个人数据，实现内容隔离。
+
+子域名网关并不能直接使用CIDv0，因为CIDv0包含大写字母，建议添加IPFS资源时使用CIDv1。
 
 ### 网关的方式
 
@@ -115,19 +114,24 @@ IPFS 网关是一个运行 IPFS 节点的服务器，它同时提供一个 HTTP/
 
 ### 激励层与永久存储
 
-为了让数据真正实现“永久”或至少是长期可靠的存储，我们需要激励节点去存储这些数据。这就是各种存储激励层（如 Filecoin, Arweave, Crust Network 等）发挥作用的地方。
+为了让数据真正实现“永久”或至少是长期可靠的存储，我们需要激励节点去存储这些数据，这就是各种存储激励层（如 Filecoin, Arweave, Crust Network 等）发挥作用的地方；
 
-这些平台通常会提供代币奖励给那些可靠存储他人数据的节点。这意味着您可能需要付费来让这些节点为您存储数据，从而确保其持久性。
+这些平台通常会提供代币奖励给那些可靠存储他人数据的节点，这意味着您可能需要付费来让这些节点为您存储数据，从而确保其持久性；
 
-但不过 Crust Network 提供了 free pin (免费固定) 你可以直接免费进行下单 但有些限制。
+Arweave 创新的使用了 区块纺技术 并结合设计好的经济模型，激励矿工进行永久存储；
 
-Crust 免费固定的限制: 单文件限制5G 存储6个月。
+永久存储的价格并不便宜，通常用于存储重要的数据；
+
+不过 Crust Network 提供了 free pin (免费固定) 你可以直接免费进行下单 但有些限制；
+
+Crust 免费固定的限制: 单文件限制5G 存储6个月(无文件数量限制)。
 
 <Aside type="note" title="特别鸣谢：Crust Network 的支持">
     目前，我们网站 `https://mirror.winx.run` 的大部分 IPFS 存储服务由 **Crust Network** 提供支持。Crust Network 是一个建立在 Substrate 框架上的去中心化云存储网络，它为 IPFS 提供了强大的激励层。值得一提的是，Crust Network 为 IPFS 提供了**免费的 Pinning 服务**（但仍有些限制。例如单个文件限制5GB，但是不限制文件数量，存储期6个月）。我们非常感谢 Crust Network 提供的宝贵支持，这使得更多人能够体验到去中心化存储的魅力！
 </Aside>
 
 简单来说，IPFS 提供了文件寻址和传输的协议，而像 Crust Network 这样的激励层则提供了让数据长期存在的经济动力。
+
 
 ## 为什么选择 IPFS？
 
