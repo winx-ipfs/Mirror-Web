@@ -12,12 +12,12 @@ import { Aside, Code } from '@astrojs/starlight/components';
 
 ## 什么是 IPFS？
 
-想象一下，我们现在的互联网（Web2）主要依赖于HTTP协议。当您访问一个网站时，您实际上是在向一个特定的服务器请求数据。如果那个服务器宕机或者数据被删除，您就无法访问了。
+想象一下，我们现在的互联网（Web2）主要依赖于HTTP(S)协议。当您访问一个网站时，您实际上是在向一个特定的服务器请求数据。如果那个服务器宕机或者数据被删除，您就无法访问了。
 
 IPFS 采用了一种不同的方法：**内容寻址**。这意味着数据的位置不再重要，重要的是数据本身的内容。
 
--   **传统HTTP:** `https://example.com/path/to/file.jpg` (基于位置)
--   **IPFS:** `/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/cat.jpg` (基于内容)
+-   **HTTP:** `https://www.winx.run/winx.png` (基于位置)
+-   **IPFS:** `ipfs://bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy/path/winx.png` (基于内容)
 
 <Aside type="tip" title="核心区别">
     HTTP 关心的是 “在哪里” 找到内容，而 IPFS 关心的是 “是什么” 内容。
@@ -27,21 +27,26 @@ IPFS 采用了一种不同的方法：**内容寻址**。这意味着数据的�
 
 IPFS 的魔力在于几个关键技术：
 
-1.  **内容标识符 (CID - Content Identifiers):**
+1.  **内容标识符 (CID - Content Identifier):**
 当您将文件添加到 IPFS 时，它会被分割成较小的数据块（chunks）。IPFS 会为每个数据块计算一个加密哈希值。然后，这些数据块的哈希值会被用来计算整个文件的哈希值，这个最终的哈希值就是文件的 CID。
-<Code lang="text" code="CID (v0): QmRKs2ZfuwvmZA3QAWmCqrGUjV9pxtBUDP3wuc6iVGnjA2 CID (v1): bafybeibml5uieyxa5tufngvg7fgwbkwvlsuntwbxgtskoqynbt7wlchmfm" title="一个示例 CID" />
-    <Aside title="什么是 CID?">
-    CID 是 IPFS 的核心。它不仅唯一标识了内容，还内置了内容的完整性校验。如果文件内容有任何微小的变动，它的 CID 就会完全不同。目前主要有 CIDv0 和 CIDv1 两种版本，CIDv1 更具可扩展性。
+<Code lang="text" code="CID (v0): QmRKs2Zfuw...    CID (v1): bafybeibml5uiey..." title="一个示例 CID" />
+
+<Aside title="什么是 CID?">
+    CID 是 IPFS 的核心。它不仅唯一标识了内容，还内置了内容的完整性校验。如果文件内容有任何微小的变动，它的 CID 就会完全不同。目前有 CIDv0 和 CIDv1 两种版本，CIDv1 更具可扩展性。
 </Aside>
 
-2.  **默克尔有向无环图 (Merkle DAGs):**
+2.  **默克尔有向无环图 (Merkle DAG):**
 文件及其数据块通过 CID 链接在一起，形成一种称为 Merkle DAG (有向无环图) 的数据结构。这个结构使得 IPFS 可以高效地验证数据完整性并跟踪文件版本。如果你有一个大文件，它可能由多个小数据块组成，这些数据块的 CID 会被记录在一个“父”对象中，这个父对象也有自己的 CID。
 
-3.  **分布式哈希表 (DHTs):**
+3.  **分布式哈希表 (DHT):**
 IPFS 网络中的节点使用 DHT 来互相发现和宣告它们拥有的内容。当您请求一个 CID 时，您的 IPFS 节点会向 DHT 查询“谁拥有这个 CID 对应的数据块？”。网络中的其他节点会响应，告诉您的节点可以从哪里下载这些数据块。
 
 4.  **Bitswap:**
-这是一种数据交换协议，IPFS 节点之间通过它来请求和发送数据块。同时它自带反吸血机制。它类似于 BitTorrent 的数据交换机制，允许节点从多个对等方同时下载数据。
+这是一种数据交换协议，IPFS 节点之间通过它来请求和发送数据块。
+
+它类似于 BitTorrent 的数据交换机制，允许节点从多个对等方同时下载数据。
+
+同时它自带反吸血机制。
 
 ## 更深入了解：IPFS 网关 (Gateway)
 
@@ -57,17 +62,30 @@ IPFS 本身是一个点对点的协议，节点之间直接通信。然而，我
 
 IPFS 网关是一个运行 IPFS 节点的服务器，它同时提供一个 HTTP/HTTPS 接口。当您通过浏览器向 IPFS 网关请求一个 IPFS CID 时，网关会：
 
-1.  **接收 HTTP 请求：** 例如，您在浏览器中输入 `https://ipfs.io/ipfs/QmSomeCID`。
+1.  **接收 HTTP 请求：** 例如，您在浏览器中输入 `https://ipfs.io/ipfs/CID`。
 2.  **在 IPFS 网络中查找内容：** 网关节点会在 IPFS 网络中查找具有该 CID 的内容。
 3.  **获取内容：** 一旦找到，网关会从其他 IPFS 节点下载这些数据块。
 4.  **通过 HTTP 响应返回内容：** 网关将获取到的内容通过 HTTP 协议发送回您的浏览器。
 
-例如，要通过 `ipfs.io` 网关访问 CID `QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco`，您可以使用 URL： `https://ipfs.io/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco`。
+例如，要通过 `ipfs.io` 网关访问 CID `bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy`，您可以使用 URL： `https://ipfs.io/ipfs/bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy` 。
 
 ### 网关的类型
 
+1.  **子域名网关 (Subdomain Gateway):**
+
+    子域名网关可以安全的在浏览器上区分不同域下的个人数据，实现内容隔离。
+    子域名网关并不能直接使用CIDv0，因为CIDv0包含大写字母，建议添加IPFS资源时使用CIDv1。
+<Code lang="text" code="https://<CID>.ipfs.<网关域名>" title="子域名网关"/>
+
+2.  **路径网关 (Path Gateway):**
+
+<Code lang="text" code="https://<网关域名>/ipfs/<CID>" title="路径网关"/>
+
+
+### 网关的方式
+
 1.  **本地网关 (Local Gateway):**
-当您在自己的计算机上运行 IPFS Desktop 或 IPFS CLI (`ipfs daemon`) 时，您的本地节点会自动启动一个 HTTP 网关。默认情况下，它通常监听在 `http://127.0.0.1:8080` (或 `http://localhost:8080`)。
+当您在自己的计算机上运行 IPFS Desktop 或 IPFS CLI (`ipfs daemon`) 时，您的本地节点会自动启动一个 HTTP 网关。默认情况下，它通常监听在 `http://127.0.0.1:8080` (或使用 `http://localhost:8080`)。
 <Aside type="tip" title="使用本地网关的好处">
     使用本地网关是最安全、最去中心化的方式来访问 IPFS 内容，因为数据直接在您的节点和网络之间传输，不经过第三方。您的浏览器直接与您本地的 IPFS 节点对话。
 </Aside>
@@ -135,7 +153,7 @@ Crust 免费固定的限制: 单文件限制5G 存储6个月。
 *   安装指南：[https://docs.ipfs.tech/install/run-ipfs-inside-docker/](https://docs.ipfs.tech/install/run-ipfs-inside-docker/)
 
 <Aside type="tip" title="运行您的节点">
-    安装完成后，启动 IPFS Desktop 或在命令行中运行 `ipfs init` 来初始化您的本地 IPFS 节点,之后并执行 `ipfs daemon` 您的节点会开始连接到 IPFS 网络中的其他对等节点。
+    安装完成后，启动 IPFS Desktop 或 在命令行中运行 `ipfs init` 来初始化您的本地 IPFS 节点,之后并执行 `ipfs daemon` 您的节点会开始连接到 IPFS 网络中的其他对等节点。
 </Aside>
 
 ### 2. 添加文件到 IPFS
@@ -151,22 +169,26 @@ Crust 免费固定的限制: 单文件限制5G 存储6个月。
 
 命令执行后，会输出类似这样的结果：
 
-<Code lang="text" code="added QmRgR7Bpa9xDMUNGiKaARvFL9MmnoFyd86rF817EZyfdGE hello-ipfs.txt
+<Code lang="text" code="added QmRgR7Bpa9xDMUNGiKaARvaL9MasoFyd86rF817EZyfdGE hello-ipfs.txt
 6 B / 6 B [==========================================================] 100.00" title="ipfs add 命令输出"/>
 
-这里的 `QmRgR7Bpa9xDMUNGiKaARvFL9MmnoFyd86rF817EZyfdGE` 就是 `hello-ipfs.txt` 的 CID。
+这里的 `QmRgR7Bpa9xDMUNGiKaARvaL9MasoFyd86rF817EZyfdGE` 就是 `hello-ipfs.txt` 的 CID。
 
 我们可以将要保存的数据固定到我们的 IPFS 节点，以确保我们不会丢失这些数据。
 
 那么就可以使用: `ipfs pin add` 来在终端里固定你的文件。
 
-<Code lang="bash" code="ipfs pin add bafybeif2ewg3nqa33mjokpxii36jj2ywfqjpy3urdh7v6vqyfjoocvgy3a" title="ipfs pin"/>
+<Code lang="bash" code="ipfs pin add bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy" title="ipfs pin"/>
 
 如果符合预期的话。这将输出如下内容：
 
-<Code lang="text" code="pinned bafybeif2ewg3nqa33mjokpxii36jj2ywfqjpy3urdh7v6vqyfjoocvgy3a recursively" title="ipfs pin"/>
+<Code lang="text" code="pinned bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy recursively" title="ipfs pin"/>
 
-默认情况下，您通过 IPFS 检索的对象不会固定到您的节点。如果您希望防止文件被垃圾回收，则需要固定它们
+默认情况下，您通过 IPFS 检索的对象不会固定到您的节点。
+
+如果您希望防止文件被垃圾回收，则需要固定它们。
+
+运行kubo时可以访问webui简化操作，例如 `http://localhost:5001/webui` ，端口为配置文件中的API端口。
 
 ## 让 IPFS 内容更易访问：命名系统
 
@@ -175,29 +197,44 @@ Crust 免费固定的限制: 单文件限制5G 存储6个月。
 ### 1. IPNS (InterPlanetary Name System)
 
 <Aside type="note" title="什么是 IPNS？">
-    IPNS 允许您创建一个指向特定 IPFS CID 的可变（可更新）指针。这个指针本身是一个基于节点公钥的稳定哈希（称为 `PeerID` 或 `Libp2p-key`）。您可以更新 IPNS 记录，使其指向您内容的最新版本的 CID，而 IPNS 名称保持不变。
+    IPNS 允许您创建一个指向特定 IPFS CID 的可变（可更新）指针。这个指针本身是一个基于公私钥的稳定哈希（称为 `IPNS ID` 或 `Libp2p-key`）。您可以更新 IPNS 记录，使其指向您内容的最新版本的 CID，而 IPNS 名称保持不变。
 </Aside>
 
--   每个 IPFS 节点都有一个唯一的 `PeerID`。您可以使用 `ipfs id` 查看您节点的 `PeerID`。
--   您可以使用 `ipfs name publish <CID>` 将您的 `PeerID` 链接到一个 CID。
--   其他人可以通过 `/ipns/<YourPeerID>` 或 `/ipns/k51qzi5uqu5dj...` (CIDv1 格式的 PeerID) 来访问您的内容。当您更新内容并重新发布时，他们访问相同的 IPNS 地址就能获取最新版本。
+-   您可以使用 `IPNS` 将您的 `CID` 链接到一个稳定的地址。
+-   其他人可以通过 `/ipns/<IPNS ID>` 来访问您的内容。当您更新内容并重新发布时，他们访问相同的 IPNS 地址就能获取最新版本（可能存在延迟）。
+-   注意：IPNS需要保证至少每天一次的内容刷新频率才能访问到内容，为了提高访问成功率，建议刷新频率不要大于12个小时。
 
 **示例：**
-假设您的 PeerID 是 `QmYourPeerID`，您发布了指向 `QmContentCIDv1` 的 IPNS 记录。
-用户可以通过 `http://127.0.0.1:8080/ipns/QmYourPeerID` 访问。
-如果您更新内容到 `QmContentCIDv2` 并重新发布，用户访问相同的 IPNS 地址将获取 `QmContentCIDv2`。
+假设您的 IPNS ID 是 `<k51qzi5uqu5dj...>`，您发布了指向CIDv1 `bafybeihqwtb6y2t...` 的 IPNS 记录。
+用户可以通过 `ipns://k51qzi5uqu5dj...` 访问。
+如果您更新内容到 `bafybeigi7zfzehp...` 并重新发布，用户访问相同的 IPNS 地址将访问到 `bafybeigi7zfzehp...`。
 
 ### 2. DNSLink
 
-DNSLink 是一种使用现有的域名系统 (DNS) 将人类可读的域名指向 IPFS 或 IPNS 地址的方法。您可以在您的 DNS 设置中添加一个 TXT 记录，你需要在你的域名前头添加`_dnslink.`也就是说_dnslink.docs.ipfs.tech
+DNSLink 是一种使用现有的域名系统 (DNS) 将人类可读的域名指向 IPFS、IPNS 或 其他DNSLink的方法。您可以在您的 DNS 设置中添加一个 TXT 记录，你需要在你的域名前头添加`_dnslink.`例如`_dnslink.ipfs.tech`。
 
-<Code lang="text" code="dnslink=/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco" title="指向 IPFS 的 DNSLink TXT 记录示例"/>
+指向静态IPFS资源示例：
 
-或者指向一个 IPNS 地址：
+<Code lang="text" code="dnslink=/ipfs/bafybeigi7zfzehpmx..." title="指向 IPFS 的 DNSLink TXT 记录示例"/>
 
-<Code lang="text" code="dnslink=/ipns/k51qzi5uqu5dihpt5vtnt92xdw8z9wv77dp8q4u7t9jeulyx3xrialj5trz4af" title="指向 IPNS 的 DNSLink TXT 记录示例"/>
+指向一个 IPNS 地址：
 
-设置完成后，支持 DNSLink 的 IPFS 客户端或网关就可以通过 `http://<your-domain-name>` (例如 `http://ipfs.example.com`) 来访问您的 IPFS 内容。
+<Code lang="text" code="dnslink=/ipns/k51qzi5uqu5dihpt5vt..." title="指向 IPNS 的 DNSLink TXT 记录示例"/>
+
+设置完成后，支持 DNSLink 的 浏览器就可以通过 `ipns://<您的域名>`(例如 `ipns://ipfs.tech`) 来访问您的 IPFS 内容。
+
+由于一些浏览器并不支持原生的IPFS/IPNS协议，可以通过另外一种方案访问IPFS上的资源。
+
+示例：
+
+<Code lang="text" code="https://<网关域名>/[ipns]/<域名>" title="路径网关"/>
+
+<Code lang="text" code="https://<域名>.ipns.<网关域名>" title="子域名网关"/>
+
+使用 公共网关 和 路径网关 访问IPFS资源可能会导致隐私泄漏，强烈建议运行本地IPFS客户端并使用默认的子域名模式。
+
+本地IPFS网关示例：
+<Code lang="text" code="http://<域名>.ipns.localhost:8080" title="子域名网关"/>
 
 ### 3. ENS (Ethereum Name Service) 及其他区块链命名服务
 
@@ -208,10 +245,18 @@ ENS 是一种基于以太坊区块链的分布式域名系统。您可以注册�
 
 许多浏览器（如 Brave）或带有 MetaMask 等扩展的浏览器原生支持解析 ENS 域名。其他区块链也提供了类似的命名服务。
 
-这里做一些简单介绍，详细的就不讲解了
+ENS同样可以通过以下方式解析：
+<Code lang="text" code="ipns://<以太坊域名>" title="原生协议"/>
+
+<Code lang="text" code="https://<以太坊域名>.ipns.<网关域名>" title="子域名网关"/>
+
+<Code lang="text" code="https://<网关域名>/ipns/<以太坊域名>" title="路径网关"/>
+
+这里做一些简单介绍，详细内容请参照以下文档。
 <Aside type="note" title="继续探索">
     - 访问 [IPFS 官方文档](https://docs.ipfs.tech/) 获取更深入的信息。
     - 参与 [IPFS 社区论坛](https://discuss.ipfs.tech/) 提问和交流。
-    - 了解更多关于 [Crust Network](https://crust.network/) 如何为 IPFS 提供存储激励。
     - 查看 [公共 IPFS 网关列表](https://check.ipfs.winx.run/) 来了解它们的在线状态和性能。
+    - 了解更多关于 [Crust Network](https://crust.network/) 如何为 IPFS 提供存储激励。
+    - 注册ENS域名 [ENS APP](https://app.ens.eth.link/)。
 </Aside>
