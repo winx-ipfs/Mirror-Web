@@ -78,7 +78,7 @@ export default defineConfig({
 					label: '帮助',
 					collapsed: true,
 					items: [
-						{label: '欢迎来到 IPFS 文档',link: '/windows/help/ipfs',},
+						{label: '欢迎来到 IPFS 文档',link: '/help/ipfs',},
 					],
 				},
 				{
