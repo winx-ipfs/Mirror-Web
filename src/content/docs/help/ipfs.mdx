@@ -1,0 +1,262 @@
+---
+title: IPFS 星际文件系统入门指南
+---
+
+import { Aside, Code } from '@astrojs/starlight/components';
+
+<Aside type="note" title="给初学者的提示">
+    如果您是第一次接触 IPFS，别担心！这份文档会从基础讲起，帮助您理解它的核心概念和使用方法。
+</Aside>
+
+欢迎来到 <strong>IPFS</strong> 的世界！IPFS (InterPlanetary File System，星际文件系统) 是一种点对点（P2P）的分布式文件系统，旨在使网络更快、更安全、更开放。
+
+## 什么是 IPFS？
+
+想象一下，我们现在的互联网（Web2）主要依赖于HTTP(S)协议。当您访问一个网站时，您实际上是在向一个特定的服务器请求数据。如果那个服务器宕机或者数据被删除，您就无法访问了。
+
+IPFS 采用了一种不同的方法：**内容寻址**。这意味着数据的位置不再重要，重要的是数据本身的内容。
+
+-   **HTTP:** `https://www.winx.run/winx.png` (基于位置)
+-   **IPFS:** `ipfs://bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy/path/winx.png` (基于内容)
+
+<Aside type="tip" title="核心区别">
+    HTTP 关心的是 “在哪里” 找到内容，而 IPFS 关心的是 “是什么” 内容。
+</Aside>
+
+## IPFS 如何工作？
+
+IPFS 的魔力在于几个关键技术：
+
+1.  **内容标识符 (CID - Content Identifier):**
+当您将文件添加到 IPFS 时，它会被分割成较小的数据块（chunks）。IPFS 会为每个数据块计算一个加密哈希值。然后，这些数据块的哈希值会被用来计算整个文件的哈希值，这个最终的哈希值就是文件的 CID。
+<Code lang="text" code="CID (v0): QmRKs2Zfuw...    CID (v1): bafybeibml5uiey..." title="一个示例 CID" />
+
+<Aside title="什么是 CID?">
+    CID 是 IPFS 的核心。它不仅唯一标识了内容，还内置了内容的完整性校验。如果文件内容有任何微小的变动，它的 CID 就会完全不同。目前有 CIDv0 和 CIDv1 两种版本，CIDv1 更具可扩展性。
+</Aside>
+
+2.  **默克尔有向无环图 (Merkle DAG):**
+文件及其数据块通过 CID 链接在一起，形成一种称为 Merkle DAG (有向无环图) 的数据结构。这个结构使得 IPFS 可以高效地验证数据完整性并跟踪文件版本。如果你有一个大文件，它可能由多个小数据块组成，这些数据块的 CID 会被记录在一个“父”对象中，这个父对象也有自己的 CID。
+
+3.  **分布式哈希表 (DHT):**
+IPFS 网络中的节点使用 DHT 来互相发现和宣告它们拥有的内容。当您请求一个 CID 时，您的 IPFS 节点会向 DHT 查询“谁拥有这个 CID 对应的数据块？”。网络中的其他节点会响应，告诉您的节点可以从哪里下载这些数据块。
+
+4.  **Bitswap:**
+这是一种数据交换协议，IPFS 节点之间通过它来请求和发送数据块。
+
+它类似于 BitTorrent 的数据交换机制，允许节点从多个对等方同时下载数据。
+
+同时它自带反吸血机制。
+
+## 更深入了解：IPFS 网关 (Gateway)
+
+<Aside type="note" title="网关是什么？">
+    IPFS 网关是连接传统的 HTTP 网络与去中心化的 IPFS 网络之间的桥梁。它允许用户通过他们熟悉的 Web 浏览器，无需运行本地 IPFS 节点，就能访问存储在 IPFS 上的内容。
+</Aside>
+
+当我们谈论从 IPFS 检索文件时，我们经常提到“网关”。那么，IPFS 网关到底是什么呢？
+
+IPFS 本身是一个点对点的协议，节点之间直接通信。然而，我们日常使用的互联网和浏览器主要依赖 HTTP/HTTPS 协议。为了让普通用户能够方便地访问 IPFS 网络上的内容，IPFS 网关应运而生。
+
+### 网关的作用
+
+IPFS 网关是一个运行 IPFS 节点的服务器，它同时提供一个 HTTP/HTTPS 接口。当您通过浏览器向 IPFS 网关请求一个 IPFS CID 时，网关会：
+
+1.  **接收 HTTP 请求：** 例如，您在浏览器中输入 `https://ipfs.io/ipfs/CID`。
+2.  **在 IPFS 网络中查找内容：** 网关节点会在 IPFS 网络中查找具有该 CID 的内容。
+3.  **获取内容：** 一旦找到，网关会从其他 IPFS 节点下载这些数据块。
+4.  **通过 HTTP 响应返回内容：** 网关将获取到的内容通过 HTTP 协议发送回您的浏览器。
+
+例如，要通过 `ipfs.io` 网关访问 CID `bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy`，您可以使用 URL： `https://ipfs.io/ipfs/bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy` 。
+
+### 网关的类型
+
+1.  **子域名网关 (Subdomain Gateway):**
+
+    子域名网关可以安全的在浏览器上区分不同域下的个人数据，实现内容隔离。
+    子域名网关并不能直接使用CIDv0，因为CIDv0包含大写字母，建议添加IPFS资源时使用CIDv1。
+<Code lang="text" code="https://<CID>.ipfs.<网关域名>" title="子域名网关"/>
+
+2.  **路径网关 (Path Gateway):**
+
+<Code lang="text" code="https://<网关域名>/ipfs/<CID>" title="路径网关"/>
+
+
+### 网关的方式
+
+1.  **本地网关 (Local Gateway):**
+当您在自己的计算机上运行 IPFS Desktop 或 IPFS CLI (`ipfs daemon`) 时，您的本地节点会自动启动一个 HTTP 网关。默认情况下，它通常监听在 `http://127.0.0.1:8080` (或使用 `http://localhost:8080`)。
+<Aside type="tip" title="使用本地网关的好处">
+    使用本地网关是最安全、最去中心化的方式来访问 IPFS 内容，因为数据直接在您的节点和网络之间传输，不经过第三方。您的浏览器直接与您本地的 IPFS 节点对话。
+</Aside>
+
+2.  **公共网关 (Public Gateways):**
+有许多由社区成员、组织或公司运营的公共 IPFS 网关。任何人都可以使用它们来访问 IPFS 内容，而无需自己运行节点。
+一些常见的公共网关包括：
+*   `ipfs.io` (由 Protocol Labs 运营)
+*   `dweb.link` (由 Protocol Labs 支持)
+*   `gateway.pinata.cloud` (由 Pinata 运营，通常与其 Pinning 服务结合)
+
+<Aside type="caution" title="公共网关的便利与风险">
+    公共网关非常方便，但它们是中心化的接入点。这意味着运营网关的组织可以看到您的请求，并且如果网关宕机，您可能无法通过它访问内容。为了获得最佳的去中心化体验和隐私，建议运行自己的节点。
+</Aside>
+
+## 关于“永久存储”的真相
+
+<Aside type="caution" title="重要认知！">
+    **IPFS 本身并不保证永久存储。** 一个文件只有在至少一个 IPFS 节点选择存储并保持在线时，它才是可访问的。如果所有存储某个文件的节点都下线或删除了该文件，那么这个文件就无法从网络中找回了。
+</Aside>
+
+那么，如何实现更持久的存储呢？答案是**激励机制**和**Pinning（钉选）服务**。
+
+### Pinning（钉选）
+
+"Pinning" 是告诉一个 IPFS 节点你认为某个数据很重要，并希望它在本地保留一份副本的过程。只要您的节点在线并且钉选了该数据，其他人就可以从您的节点获取它。
+
+### 激励层与永久存储
+
+为了让数据真正实现“永久”或至少是长期可靠的存储，我们需要激励节点去存储这些数据。这就是各种存储激励层（如 Filecoin, Arweave, Crust Network 等）发挥作用的地方。
+
+这些平台通常会提供代币奖励给那些可靠存储他人数据的节点。这意味着您可能需要付费来让这些节点为您存储数据，从而确保其持久性。
+
+但不过 Crust Network 提供了 free pin (免费固定) 你可以直接免费进行下单 但有些限制。
+
+Crust 免费固定的限制: 单文件限制5G 存储6个月。
+
+<Aside type="note" title="特别鸣谢：Crust Network 的支持">
+    目前，我们网站 `https://mirror.winx.run` 的大部分 IPFS 存储服务由 **Crust Network** 提供支持。Crust Network 是一个建立在 Substrate 框架上的去中心化云存储网络，它为 IPFS 提供了强大的激励层。值得一提的是，Crust Network 为 IPFS 提供了**免费的 Pinning 服务**（但仍有些限制。例如单个文件限制5GB，但是不限制文件数量，存储期6个月）。我们非常感谢 Crust Network 提供的宝贵支持，这使得更多人能够体验到去中心化存储的魅力！
+</Aside>
+
+简单来说，IPFS 提供了文件寻址和传输的协议，而像 Crust Network 这样的激励层则提供了让数据长期存在的经济动力。
+
+## 为什么选择 IPFS？
+
+-   **去中心化:** 没有单点故障，数据不由单一实体控制。
+-   **抗审查:** 由于数据是分布式的，并且通过内容寻址，很难被审查或封锁。
+-   **数据完整性:** CID 保证了您获取的数据就是您请求的数据，未被篡改。
+-   **高效的内容分发:** 对于热门内容，P2P 网络可以比传统服务器更快地分发。
+-   **离线可用性:** 如果您在本地 IPFS 节点上钉选了内容，即使没有互联网连接也可以访问。
+
+## 如何使用 IPFS？
+
+下面是通过 IPFS 存储和访问文件的基本步骤：
+
+### 1. 安装 IPFS
+
+您可以通过多种方式运行 IPFS 节点：
+
+*   **IPFS Desktop:** 一个用户友好的桌面应用程序，集成了 IPFS 节点、文件管理器和浏览器扩展。推荐初学者使用。
+*   下载地址：[https://docs.ipfs.tech/install/ipfs-desktop/](https://docs.ipfs.tech/install/ipfs-desktop/)
+*   **IPFS CLI (Kubo):** 命令行工具，功能更强大，适合开发者和高级用户。
+*   安装指南：[https://docs.ipfs.tech/install/command-line/](https://docs.ipfs.tech/install/command-line/)
+*   **IPFS docker (Kubo):** 容器化部署，简单又方便，适合开发者和高级用户。
+*   安装指南：[https://docs.ipfs.tech/install/run-ipfs-inside-docker/](https://docs.ipfs.tech/install/run-ipfs-inside-docker/)
+
+<Aside type="tip" title="运行您的节点">
+    安装完成后，启动 IPFS Desktop 或 在命令行中运行 `ipfs init` 来初始化您的本地 IPFS 节点,之后并执行 `ipfs daemon` 您的节点会开始连接到 IPFS 网络中的其他对等节点。
+</Aside>
+
+### 2. 添加文件到 IPFS
+
+一旦您的节点运行起来，您就可以添加文件了。
+
+**使用 IPFS Desktop:**
+通常可以直接拖拽文件到 IPFS Desktop 的文件界面。
+
+**使用 IPFS CLI:**
+打开终端或命令提示符，使用 `ipfs add` 命令：
+<Code lang="bash" code="ipfs add hello-ipfs.txt" title="添加单个文件到 IPFS" />
+
+命令执行后，会输出类似这样的结果：
+
+<Code lang="text" code="added QmRgR7Bpa9xDMUNGiKaARvaL9MasoFyd86rF817EZyfdGE hello-ipfs.txt
+6 B / 6 B [==========================================================] 100.00" title="ipfs add 命令输出"/>
+
+这里的 `QmRgR7Bpa9xDMUNGiKaARvaL9MasoFyd86rF817EZyfdGE` 就是 `hello-ipfs.txt` 的 CID。
+
+我们可以将要保存的数据固定到我们的 IPFS 节点，以确保我们不会丢失这些数据。
+
+那么就可以使用: `ipfs pin add` 来在终端里固定你的文件。
+
+<Code lang="bash" code="ipfs pin add bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy" title="ipfs pin"/>
+
+如果符合预期的话。这将输出如下内容：
+
+<Code lang="text" code="pinned bafybeiepp27xh5tmdiycytuylzwqjvdrgmx4ecf5zkbzu52iafswgakcvy recursively" title="ipfs pin"/>
+
+默认情况下，您通过 IPFS 检索的对象不会固定到您的节点。
+
+如果您希望防止文件被垃圾回收，则需要固定它们。
+
+运行kubo时可以访问webui简化操作，例如 `http://localhost:5001/webui` ，端口为配置文件中的API端口。
+
+## 让 IPFS 内容更易访问：命名系统
+
+记住和分享长长的 CID 字符串 (`QmXoyp...`) 并不方便。为了解决这个问题，IPFS 生态系统提供了几种命名系统：
+
+### 1. IPNS (InterPlanetary Name System)
+
+<Aside type="note" title="什么是 IPNS？">
+    IPNS 允许您创建一个指向特定 IPFS CID 的可变（可更新）指针。这个指针本身是一个基于公私钥的稳定哈希（称为 `IPNS ID` 或 `Libp2p-key`）。您可以更新 IPNS 记录，使其指向您内容的最新版本的 CID，而 IPNS 名称保持不变。
+</Aside>
+
+-   您可以使用 `IPNS` 将您的 `CID` 链接到一个稳定的地址。
+-   其他人可以通过 `/ipns/<IPNS ID>` 来访问您的内容。当您更新内容并重新发布时，他们访问相同的 IPNS 地址就能获取最新版本（可能存在延迟）。
+-   注意：IPNS需要保证至少每天一次的内容刷新频率才能访问到内容，为了提高访问成功率，建议刷新频率不要大于12个小时。
+
+**示例：**
+假设您的 IPNS ID 是 `<k51qzi5uqu5dj...>`，您发布了指向CIDv1 `bafybeihqwtb6y2t...` 的 IPNS 记录。
+用户可以通过 `ipns://k51qzi5uqu5dj...` 访问。
+如果您更新内容到 `bafybeigi7zfzehp...` 并重新发布，用户访问相同的 IPNS 地址将访问到 `bafybeigi7zfzehp...`。
+
+### 2. DNSLink
+
+DNSLink 是一种使用现有的域名系统 (DNS) 将人类可读的域名指向 IPFS、IPNS 或 其他DNSLink的方法。您可以在您的 DNS 设置中添加一个 TXT 记录，你需要在你的域名前头添加`_dnslink.`例如`_dnslink.ipfs.tech`。
+
+指向静态IPFS资源示例：
+
+<Code lang="text" code="dnslink=/ipfs/bafybeigi7zfzehpmx..." title="指向 IPFS 的 DNSLink TXT 记录示例"/>
+
+指向一个 IPNS 地址：
+
+<Code lang="text" code="dnslink=/ipns/k51qzi5uqu5dihpt5vt..." title="指向 IPNS 的 DNSLink TXT 记录示例"/>
+
+设置完成后，支持 DNSLink 的 浏览器就可以通过 `ipns://<您的域名>`(例如 `ipns://ipfs.tech`) 来访问您的 IPFS 内容。
+
+由于一些浏览器并不支持原生的IPFS/IPNS协议，可以通过另外一种方案访问IPFS上的资源。
+
+示例：
+
+<Code lang="text" code="https://<网关域名>/[ipns]/<域名>" title="路径网关"/>
+
+<Code lang="text" code="https://<域名>.ipns.<网关域名>" title="子域名网关"/>
+
+使用 公共网关 和 路径网关 访问IPFS资源可能会导致隐私泄漏，强烈建议运行本地IPFS客户端并使用默认的子域名模式。
+
+本地IPFS网关示例：
+<Code lang="text" code="http://<域名>.ipns.localhost:8080" title="子域名网关"/>
+
+### 3. ENS (Ethereum Name Service) 及其他区块链命名服务
+
+ENS 是一种基于以太坊区块链的分布式域名系统。您可以注册一个 `.eth` 域名（例如 `myname.eth`），并将其配置为解析到 IPFS CID 或 IPNS 地址。
+
+-   **优点:** 高度去中心化，抗审查。
+-   **缺点:** 需要以太坊钱包和少量 ETH 来注册和管理域名。
+
+许多浏览器（如 Brave）或带有 MetaMask 等扩展的浏览器原生支持解析 ENS 域名。其他区块链也提供了类似的命名服务。
+
+ENS同样可以通过以下方式解析：
+<Code lang="text" code="ipns://<以太坊域名>" title="原生协议"/>
+
+<Code lang="text" code="https://<以太坊域名>.ipns.<网关域名>" title="子域名网关"/>
+
+<Code lang="text" code="https://<网关域名>/ipns/<以太坊域名>" title="路径网关"/>
+
+这里做一些简单介绍，详细内容请参照以下文档。
+<Aside type="note" title="继续探索">
+    - 访问 [IPFS 官方文档](https://docs.ipfs.tech/) 获取更深入的信息。
+    - 参与 [IPFS 社区论坛](https://discuss.ipfs.tech/) 提问和交流。
+    - 查看 [公共 IPFS 网关列表](https://check.ipfs.winx.run/) 来了解它们的在线状态和性能。
+    - 了解更多关于 [Crust Network](https://crust.network/) 如何为 IPFS 提供存储激励。
+    - 注册ENS域名 [ENS APP](https://app.ens.eth.link/)。
+</Aside>
