@@ -78,7 +78,8 @@ export default defineConfig({
 					label: '帮助',
 					collapsed: true,
 					items: [
-						{label: '欢迎来到 IPFS 文档',link: '/help/ipfs',},
+						{label: 'IPFS 介绍',link: '/help/ipfs',},
+						{label: '如何下载文件',link: '/help/download',},
 					],
 				},
 				{

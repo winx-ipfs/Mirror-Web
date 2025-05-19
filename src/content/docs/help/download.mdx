@@ -1,0 +1,52 @@
+---
+title: 如何下载文件？
+---
+
+import { Aside, Code } from '@astrojs/starlight/components';
+
+## 引导
+1. 如果您因特殊情况只想要下载文件，并不想安装任何额外的软件请直接使用 [IPFS下载工具](https://ipfs.winx.run/) 或 [网关下载](https://check.ipfs.winx.run/)。
+
+2. 安装IPFS后可以享受本地缓存浏览IPFS Web页面，同时可以为其他使用者提供自己缓存和固定的内容；
+
+3. 为其他使用者提供内容可以加快IPFS网络速度，您可以有选择的共享一些文件;
+
+4. 建议您下载文件之后保持一段时间的上传，避免成为吸血用户，否则可能回被[Bitswap协议](/help/ipfs#ipfs-如何工作)自动反吸血。
+
+## 使用本地网关下载文件
+
+1. 直接下载文件:
+<Code lang="text" code="http://localhost:8080/ipfs/<CID>" title="内容标识符(CID) 访问示例"/>
+
+2. 通过IPNS下载文件:
+<Code lang="text" code="http://localhost:8080/ipns/<IPNS ID>" title="星际名称系统(IPNS) 访问示例"/>
+
+公共网关使用方法类似，子域名网关等 更多内容请查看 [更深入了解ipfs-网关-gateway](/help/ipfs#更深入了解ipfs-网关-gateway)
+
+## IPFS Desktop
+
+这是官方打包好可以直接安装的IPFS桌面程序，推荐小白使用此方式；
+
+在Github上打开[IPFS Desktop](https://github.com/ipfs/ipfs-desktop/)官方仓库可以下载安装包；
+
+按照软件的安装流程进行安装即可。
+
+<Code lang="text" code="https://github.com/ipfs/ipfs-desktop/releases/" title="IPFS Desktop" />
+
+
+## IPFS Kubo
+
+[IPFS Kubo](https://github.com/ipfs/kubo/)是官方的IPFS命令行应用，推荐有一定动手能力的用户使用。
+
+<Code lang="text" code="https://github.com/ipfs/kubo/" title="IPFS Kubo" />
+
+可以从HTTP API端口打开WebUI进行方便的管理。
+
+<Code lang="text" code="http://localhost:5001/webui/" title="WebUI" />
+
+<Aside type="note" title="如何使用IPFS Kubo？">
+    - 请运行IPFS后访问 [去中心化 IPFS 官方文档](http://docs.ipfs.tech.ipns.localhost:8080/) 获取更深入的信息。
+    - 也可以直接访问 [IPFS 官方文档](https://docs.ipfs.tech/) 获取更深入的信息。
+</Aside>
+
+
